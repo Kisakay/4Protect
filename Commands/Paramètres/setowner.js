@@ -3,113 +3,113 @@ const db = require('../../Events/loadDatabase');
 const { EmbedBuilder } = require('discord.js');
 
 exports.help = {
-  name: 'setowner',
-  helpname: 'setowner [mention/id]',
-  description: "Permet d'ajouter des owners",
-  help: 'setowner [mention/id]',
+	name: 'setowner',
+	helpname: 'setowner [mention/id]',
+	description: "Permet d'ajouter des owners",
+	help: 'setowner [mention/id]',
 };
 
 exports.run = async (bot, message, args, config) => {
-  const checkPerm = async (message, commandName) => {
-    if (config.owners.includes(message.author.id)) {
-      return true;
-    }
+	const checkPerm = async (message, commandName) => {
+		if (config.owners.includes(message.author.id)) {
+			return true;
+		}
 
-const publicStatut = await new Promise((resolve, reject) => {
-  db.get('SELECT statut FROM public WHERE guild = ? AND statut = ?', [message.guild.id, 'on'], (err, row) => {
-    if (err) reject(err);
-    resolve(!!row);
-  });
-});
+		const publicStatut = await new Promise((resolve, reject) => {
+			db.get('SELECT statut FROM public WHERE guild = ? AND statut = ?', [message.guild.id, 'on'], (err, row) => {
+				if (err) reject(err);
+				resolve(!!row);
+			});
+		});
 
-if (publicStatut) {
+		if (publicStatut) {
 
-  const checkPublicCmd = await new Promise((resolve, reject) => {
-    db.get(
-      'SELECT command FROM cmdperm WHERE perm = ? AND command = ? AND guild = ?',
-      ['public', commandName, message.guild.id],
-      (err, row) => {
-        if (err) reject(err);
-        resolve(!!row);
-      }
-    );
-  });
+			const checkPublicCmd = await new Promise((resolve, reject) => {
+				db.get(
+					'SELECT command FROM cmdperm WHERE perm = ? AND command = ? AND guild = ?',
+					['public', commandName, message.guild.id],
+					(err, row) => {
+						if (err) reject(err);
+						resolve(!!row);
+					}
+				);
+			});
 
-  if (checkPublicCmd) {
-    return true;
-  }
-}
-    
-    try {
-      const checkUserWl = await new Promise((resolve, reject) => {
-        db.get('SELECT id FROM whitelist WHERE id = ?', [message.author.id], (err, row) => {
-          if (err) reject(err);
-          resolve(!!row);
-        });
-      });
+			if (checkPublicCmd) {
+				return true;
+			}
+		}
 
-      if (checkUserWl) {
-        return true;
-      }
+		try {
+			const checkUserWl = await new Promise((resolve, reject) => {
+				db.get('SELECT id FROM whitelist WHERE id = ?', [message.author.id], (err, row) => {
+					if (err) reject(err);
+					resolve(!!row);
+				});
+			});
 
-            const checkDbOwner = await new Promise((resolve, reject) => {
-        db.get('SELECT id FROM owner WHERE id = ?', [message.author.id], (err, row) => {
-          if (err) reject(err);
-          resolve(!!row);
-        });
-      });
+			if (checkUserWl) {
+				return true;
+			}
 
-      if (checkDbOwner) {
-        return true;
-      }
+			const checkDbOwner = await new Promise((resolve, reject) => {
+				db.get('SELECT id FROM owner WHERE id = ?', [message.author.id], (err, row) => {
+					if (err) reject(err);
+					resolve(!!row);
+				});
+			});
 
-      const roles = message.member.roles.cache.map(role => role.id);
+			if (checkDbOwner) {
+				return true;
+			}
 
-      const permissions = await new Promise((resolve, reject) => {
-        db.all('SELECT perm FROM permissions WHERE id IN (' + roles.map(() => '?').join(',') + ') AND guild = ?', [...roles, message.guild.id], (err, rows) => {
-          if (err) reject(err);
-          resolve(rows.map(row => row.perm));
-        });
-      });
+			const roles = message.member.roles.cache.map(role => role.id);
 
-      if (permissions.length === 0) {
-        return false;
-      }
+			const permissions = await new Promise((resolve, reject) => {
+				db.all('SELECT perm FROM permissions WHERE id IN (' + roles.map(() => '?').join(',') + ') AND guild = ?', [...roles, message.guild.id], (err, rows) => {
+					if (err) reject(err);
+					resolve(rows.map(row => row.perm));
+				});
+			});
 
-      const checkCmdPermLevel = await new Promise((resolve, reject) => {
-        db.all('SELECT command FROM cmdperm WHERE perm IN (' + permissions.map(() => '?').join(',') + ') AND guild = ?', [...permissions, message.guild.id], (err, rows) => {
-          if (err) reject(err);
-          resolve(rows.map(row => row.command));
-        });
-      });
+			if (permissions.length === 0) {
+				return false;
+			}
 
-      return checkCmdPermLevel.includes(commandName);
-    } catch (error) {
-      console.error('Erreur lors de la vérification des permissions:', error);
-      return false;
-    }
-  };
+			const checkCmdPermLevel = await new Promise((resolve, reject) => {
+				db.all('SELECT command FROM cmdperm WHERE perm IN (' + permissions.map(() => '?').join(',') + ') AND guild = ?', [...permissions, message.guild.id], (err, rows) => {
+					if (err) reject(err);
+					resolve(rows.map(row => row.command));
+				});
+			});
 
-  if (!(await checkPerm(message, exports.help.name))) {
-    const noacces = new EmbedBuilder()
-    .setDescription("Vous n'avez pas la permission d'utiliser cette commande")
-    .setColor(config.color);
-    return message.reply({embeds:[noacces],allowedMentions:{repliedUser:true}}).then(m=>setTimeout(()=>m.delete().catch(()=>{}),2000));
-  }
+			return checkCmdPermLevel.includes(commandName);
+		} catch (error) {
+			console.error('Erreur lors de la vérification des permissions:', error);
+			return false;
+		}
+	};
 
-    const user = message.mentions.users.first() || await bot.users.fetch(args[0]).catch(() => null);
-    if (!user) return
+	if (!(await checkPerm(message, exports.help.name))) {
+		const noacces = new EmbedBuilder()
+			.setDescription("Vous n'avez pas la permission d'utiliser cette commande")
+			.setColor(config.color);
+		return message.reply({ embeds: [noacces], allowedMentions: { repliedUser: true } }).then(m => setTimeout(() => m.delete().catch(() => { }), 2000));
+	}
 
-    db.run(`INSERT OR IGNORE INTO owner (id) VALUES (?)`, [user.id], function(err) {
-      if (err) {
-        console.error('Erreur lors de l\'ajout à la liste des owner:', err);
-        return 
-      }
+	const user = message.mentions.users.first() || await bot.users.fetch(args[0]).catch(() => null);
+	if (!user) return
 
-      if (this.changes === 0) {
-        return message.reply(`<@${user.id}> est déjà owner.`);
-      }
+	db.run(`INSERT OR IGNORE INTO owner (id) VALUES (?)`, [user.id], function (err) {
+		if (err) {
+			console.error('Erreur lors de l\'ajout à la liste des owner:', err);
+			return
+		}
 
-      message.reply(`<@${user.id}> est désormais un owner.`);
-    });
+		if (this.changes === 0) {
+			return message.reply(`<@${user.id}> est déjà owner.`);
+		}
+
+		message.reply(`<@${user.id}> est désormais un owner.`);
+	});
 };
