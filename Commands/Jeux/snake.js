@@ -17,14 +17,14 @@ exports.run = async (bot, message, args, config) => {
 			return true;
 		}
 
-		const public = await new Promise((resolve, reject) => {
+		const publicData = await new Promise((resolve, reject) => {
 			db.get('SELECT statut FROM public WHERE guild = ? AND statut = ?', [message.guild.id, 'on'], (err, row) => {
 				if (err) reject(err);
 				resolve(!!row);
 			});
 		});
 
-		if (public) {
+		if (publicData) {
 
 			const publiccheck = await new Promise((resolve, reject) => {
 				db.get(
