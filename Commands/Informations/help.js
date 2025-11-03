@@ -101,7 +101,7 @@ export const command = {
 			}
 		};
 
-		if (!(await checkPerm(message, command.help.name))) {
+		if (!(await checkPerm(message, command.name))) {
 			const noacces = new EmbedBuilder()
 				.setDescription("Vous n'avez pas la permission d'utiliser cette commande")
 				.setColor(config.color);
@@ -116,13 +116,13 @@ export const command = {
 				const commandFiles = fs.readdirSync(cpath).filter(file => file.endsWith('.js'));
 				for (const file of commandFiles) {
 					const command = (await import(`../../Commands/${category}/${file}`)).command;
-					if (command.help.name === args[0] || (command.help.aliases && command.help.aliases.includes(args[0]))) {
+					if (command.name === args[0] || (command.aliases && command.aliases.includes(args[0]))) {
 						const embed = new EmbedBuilder()
-							.setTitle(`${command.help.name}`)
-							.setDescription(command.help.description || "Aucune description")
+							.setTitle(`${command.name}`)
+							.setDescription(command.description || "Aucune description")
 							.addFields(
-								{ name: 'Utilisation', value: `\`${config.prefix}${command.help.help}\`` },
-								{ name: 'Alias', value: command.help.aliases ? command.help.aliases.join(', ') : '  ' }
+								{ name: 'Utilisation', value: `\`${config.prefix}${command.help}\`` },
+								{ name: 'Alias', value: command.aliases ? command.aliases.join(', ') : '  ' }
 							)
 							.setColor(config.color)
 							.setFooter({ text: "4Protect V2" });
@@ -156,9 +156,9 @@ export const command = {
 				for (const file of commandFiles) {
 					const cmd = (await import(`../../Commands/${category}/${file}`)).command;
 
-					const checkhelpPerm = await checkPerm(message, cmd.help.name);
+					const checkhelpPerm = await checkPerm(message, cmd.name);
 					if (checkhelpPerm) {
-						commands.push(`**\`${config.prefix}${cmd.help.helpname || cmd.help.name}\`**\n${cmd.help.description || ' '}`);
+						commands.push(`**\`${config.prefix}${cmd.helpname || cmd.name}\`**\n${cmd.description || ' '}`);
 
 					}
 				}
