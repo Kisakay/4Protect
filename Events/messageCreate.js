@@ -1,9 +1,9 @@
 const db = require('../Events/loadDatabase');
 const spamMap = new Map();
-const config = require('../config.json');
-const { EmbedBuilder } = require('discord.js');
+import config from "../config.json";
+import { EmbedBuilder } from "discord.js";
 
-module.exports = {
+export default {
 	name: 'messageCreate',
 	async execute(message, bot, config) {
 		if (!message.guild || message.author.bot) return;

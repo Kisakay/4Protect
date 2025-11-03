@@ -1,8 +1,8 @@
-const Discord = require('discord.js');
-const db = require('../../Events/loadDatabase');
-const config = require('../../config.json');
-const { EmbedBuilder } = require('discord.js')
+import Discord from "discord.js"
+import db from "./Events/loadDatabase.js";
+import config from "../../config.json"
 
+import { EmbedBuilder } from "discord.js";
 exports.help = {
 	name: 'nom',
 	helpname: 'nom <x/x> [x/x] - texte dans le +help',

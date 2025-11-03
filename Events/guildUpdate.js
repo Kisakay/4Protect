@@ -1,7 +1,7 @@
 const { AuditLogEvent } = require('discord.js');
 const db = require('../Events/loadDatabase');
-const sendLog = require('./sendlog.js');
-const config = require('../config.json');
+import sendLog from "./sendlog.js";
+import config from "../config.json";
 
 const bypass = async (userId) => {
 	if (config.owners && config.owners.includes(userId)) return true;
@@ -15,7 +15,7 @@ const bypass = async (userId) => {
 	});
 };
 
-module.exports = {
+export default {
 	name: 'guildUpdate',
 	async execute(oldGuild, newGuild) {
 

@@ -1,9 +1,9 @@
 const { ChannelType, PermissionsBitField, EmbedBuilder } = require('discord.js');
 const db = require('../Events/loadDatabase');
-const sendLog = require('./sendlog.js');
-const config = require('../config.json');
+import sendLog from "./sendlog.js";
+import config from "../config.json";
 
-module.exports = {
+export default {
 	name: 'voiceStateUpdate',
 	async execute(oldState, newState, bot) {
 		const guildId = oldState.guild.id;

@@ -1,6 +1,6 @@
-const fs = require('fs');
+import fs from "fs"
 
-module.exports = bot => {
+export default bot => {
 	const arrayOfSlashCommands = [];
 	const commandFiles = fs.readdirSync('./SlashCommands/').filter((file) => file.endsWith('.js'));
 
