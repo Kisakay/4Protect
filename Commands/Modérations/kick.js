@@ -90,7 +90,7 @@ export const command = {
 			}
 		};
 
-		if (!(await checkperm(message, exports.help.name))) {
+		if (!(await checkperm(message, command.name))) {
 			const noacces = new EmbedBuilder()
 				.setDescription("Vous n'avez pas la permission d'utiliser cette commande.")
 				.setColor(config.color);

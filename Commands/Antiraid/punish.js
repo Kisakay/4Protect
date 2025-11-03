@@ -88,7 +88,7 @@ export const command = {
 			}
 		};
 
-		if (!(await checkPerm(message, exports.help.name))) {
+		if (!(await checkPerm(message, command.name))) {
 			const noacces = new EmbedBuilder()
 				.setDescription("Vous n'avez pas la permission d'utiliser cette commande")
 				.setColor(config.color);
@@ -131,7 +131,7 @@ export const command = {
 
 		if (!module || !sanction || !modules.includes(module.toLowerCase()) || !sanc.includes(sanction.toLowerCase())) {
 			return message.reply({
-				content: `\`${exports.help.use}\`\nModules: ${modules.join(', ')}\nSanctions: ${sanc.join(', ')}`,
+				content: `\`${command.use}\`\nModules: ${modules.join(', ')}\nSanctions: ${sanc.join(', ')}`,
 				allowedMentions: { repliedUser: false }
 			});
 		}

@@ -208,7 +208,6 @@ const handleCommands = async (message, bot, config) => {
 		const args = message.content.slice(config.prefix.length).trim().split(/ +/);
 		const commandName = args.shift()?.toLowerCase();
 
-		console.log(bot.commands)
 		const commandFile = bot.commands.get(commandName);
 		if (!commandFile) return;
 

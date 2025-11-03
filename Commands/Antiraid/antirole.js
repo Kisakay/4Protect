@@ -88,7 +88,7 @@ export const command = {
 			}
 		};
 
-		if (!(await checkPerm(message, exports.help.name))) {
+		if (!(await checkPerm(message, command.name))) {
 			const noacces = new EmbedBuilder()
 				.setDescription("Vous n'avez pas la permission d'utiliser cette commande")
 				.setColor(config.color);
