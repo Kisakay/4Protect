@@ -1,4 +1,4 @@
-const db = require('../Events/loadDatabase');
+import db from "./loadDatabase.js";
 
 export default {
 	name: 'presenceUpdate',

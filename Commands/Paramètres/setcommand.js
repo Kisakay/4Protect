@@ -121,12 +121,12 @@ export const command = {
 			return
 		}
 
-		const commandExists = (commandName) => {
+		const commandExists = async (commandName) => {
 			const commandFolders = fs.readdirSync('./Commands').filter((file) => fs.statSync(path.join('./Commands', file)).isDirectory());
 			for (const folder of commandFolders) {
 				const commandFiles = fs.readdirSync(`./Commands/${folder}`).filter(file => file.endsWith('.js'));
 				for (const file of commandFiles) {
-					const cmd = require(`../../Commands/${folder}/${file}`);
+					const cmd = (await import(`../../Commands/${folder}/${file}`)).command;
 					if (cmd.help && cmd.help.name.toLowerCase() === commandName) {
 						return true;
 					}

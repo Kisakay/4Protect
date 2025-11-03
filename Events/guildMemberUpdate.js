@@ -1,7 +1,7 @@
-const { AuditLogEvent, EmbedBuilder } = require('discord.js');
-const db = require('../Events/loadDatabase');
+import { AuditLogEvent, EmbedBuilder } from 'discord.js';
 import sendLog from "./sendlog.js";
 import config from "../config.json";
+import db from "./loadDatabase.js";
 
 const bypass = async (userId) => {
 	if (config.owners && config.owners.includes(userId)) return true;

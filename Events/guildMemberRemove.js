@@ -1,4 +1,4 @@
-const { AuditLogEvent, EmbedBuilder } = require('discord.js');
+import { AuditLogEvent, EmbedBuilder } from 'discord.js';
 import config from "../config.json";
 import sendLog from "./sendlog.js";
 

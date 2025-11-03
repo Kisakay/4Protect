@@ -115,7 +115,7 @@ export const command = {
 				if (!fs.existsSync(cpath)) continue;
 				const commandFiles = fs.readdirSync(cpath).filter(file => file.endsWith('.js'));
 				for (const file of commandFiles) {
-					const command = require(`../../Commands/${category}/${file}`);
+					const command = (await import(`../../Commands/${category}/${file}`)).command;
 					if (command.help.name === args[0] || (command.help.aliases && command.help.aliases.includes(args[0]))) {
 						const embed = new EmbedBuilder()
 							.setTitle(`${command.help.name}`)
@@ -154,7 +154,7 @@ export const command = {
 				const commandFiles = fs.readdirSync(cpath).filter(file => file.endsWith('.js'));
 
 				for (const file of commandFiles) {
-					const cmd = require(`../../Commands/${category}/${file}`);
+					const cmd = (await import(`../../Commands/${category}/${file}`)).command;
 
 					const checkhelpPerm = await checkPerm(message, cmd.help.name);
 					if (checkhelpPerm) {

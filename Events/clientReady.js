@@ -1,4 +1,4 @@
-const { ActivityType } = require('discord.js');
+import { ActivityType } from "discord.js";
 
 export default {
 	name: 'clientReady',

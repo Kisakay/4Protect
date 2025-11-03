@@ -1,7 +1,7 @@
-const { ChannelType, PermissionsBitField, EmbedBuilder } = require('discord.js');
-const db = require('../Events/loadDatabase');
+import { ChannelType, PermissionsBitField, EmbedBuilder } from 'discord.js';
 import sendLog from "./sendlog.js";
 import config from "../config.json";
+import db from './loadDatabase.js';
 
 export default {
 	name: 'voiceStateUpdate',

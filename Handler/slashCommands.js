@@ -1,11 +1,11 @@
 import fs from "fs"
 
-export default bot => {
+export default async bot => {
 	const arrayOfSlashCommands = [];
 	const commandFiles = fs.readdirSync('./SlashCommands/').filter((file) => file.endsWith('.js'));
 
 	for (const file of commandFiles) {
-		const props = require(`../SlashCommands/${file}`);
+		const props = (await import(`../SlashCommands/${file}`)).command;
 		bot.slashCommands.set(props.name, props);
 		arrayOfSlashCommands.push(props);
 		bot.arrayOfSlashCommands = arrayOfSlashCommands
@@ -17,7 +17,7 @@ export default bot => {
 		const subCommandFiles = fs.readdirSync(`./SlashCommands/${folder}/`).filter((file) => file.endsWith('.js'));
 
 		for (const file of subCommandFiles) {
-			const props = require(`../SlashCommands/${folder}/${file}`);
+			const props = (await import(`../SlashCommands/${folder}/${file}`)).command;
 			bot.slashCommands.set(props.name, props);
 			arrayOfSlashCommands.push(props);
 			bot.arrayOfSlashCommands = arrayOfSlashCommands
