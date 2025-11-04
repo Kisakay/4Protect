@@ -1,6 +1,6 @@
 import Discord from "discord.js"
 import { EmbedBuilder } from "discord.js";
-import config from "./config.json";
+import config from "./config.json" with { type: 'json' }
 import { GiveawaysManager } from "discord-giveaways";
 
 const bot = new Discord.Client({
@@ -65,6 +65,6 @@ bot.giveawaysManager.on('giveawayEnded', async (giveaway, winners) => {
 );
 const commandHandler = (await import('./Handler/Commands.js')).default(bot);
 const slashcommandHandler = (await import('./Handler/slashCommands.js')).default(bot);
-const eventdHandler = (await import('./Handler/Events')).default(bot);
-const anticrashHandler = (await import('./Handler/anticrash')).default;
+const eventdHandler = (await import('./Handler/Events.js')).default(bot);
+const anticrashHandler = (await import('./Handler/anticrash.js')).default;
 anticrashHandler(bot);

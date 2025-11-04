@@ -1,6 +1,6 @@
 import { EmbedBuilder, PermissionsBitField } from 'discord.js';
-import db from '../../Events/loadDatabase';
-import config from "../../config.json";
+import db from '../../Events/loadDatabase.js';
+import config from "../../config.json" with { type: 'json' }
 
 export const command = {
 	name: 'userinfo',

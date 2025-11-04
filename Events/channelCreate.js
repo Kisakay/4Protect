@@ -1,5 +1,5 @@
 import Discord from "discord.js"
-import config from "../config.json";
+import config from "../config.json" with { type: 'json' }
 import sendLog from "./sendlog.js";
 import db from "./loadDatabase.js";
 

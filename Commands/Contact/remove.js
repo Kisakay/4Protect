@@ -1,7 +1,7 @@
 import { EmbedBuilder } from 'discord.js';
-import db from '../../Events/loadDatabase';
-import config from '../../config.json';
-import sendLog from '../../Events/sendlog';
+import db from '../../Events/loadDatabase.js';
+import config from '../../config.json' with { type: 'json' };
+import sendLog from '../../Events/sendlog.js';
 import * as Discord from "discord.js";
 
 export const command = {

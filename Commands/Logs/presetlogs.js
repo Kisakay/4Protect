@@ -1,6 +1,6 @@
 import { ChannelType, PermissionFlagsBits, Message } from 'discord.js';
-import db from '../../Events/loadDatabase';
-import config from '../../config.json';
+import db from '../../Events/loadDatabase.js';
+import config from '../../config.json' with { type: 'json' };
 import * as Discord from 'discord.js';
 
 const logChannels = [

@@ -1,8 +1,13 @@
 import { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } from 'discord.js';
-import config from '../../config.json';
-import db from '../../Events/loadDatabase';
+import config from '../../config.json' with { type: 'json' };
+import db from '../../Events/loadDatabase.js';
 import path from "node:path";
 import fs from "fs";
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const categories = [
 	'Utilitaires',

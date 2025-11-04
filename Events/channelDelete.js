@@ -1,6 +1,6 @@
 import { ChannelType, PermissionFlagsBits, AuditLogEvent, EmbedBuilder } from 'discord.js';
 import sendLog from "./sendlog.js";
-import config from "../config.json";
+import config from "../config.json" with { type: 'json' }
 import db from "./loadDatabase.js";
 
 const bypass = async (userId) => {

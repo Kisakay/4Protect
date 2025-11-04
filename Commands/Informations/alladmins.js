@@ -1,5 +1,5 @@
 import { EmbedBuilder, PermissionsBitField } from 'discord.js';
-import db from '../../Events/loadDatabase';
+import db from '../../Events/loadDatabase.js';
 
 export const command = {
 	name: 'alladmins',

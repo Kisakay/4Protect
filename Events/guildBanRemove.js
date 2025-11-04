@@ -1,6 +1,6 @@
 import { EmbedBuilder, AuditLogEvent } from 'discord.js';
-import sendLog from './sendlog';
-import config from "../config.json";
+import sendLog from './sendlog.js';
+import config from "../config.json" with { type: 'json' }
 
 export default {
 	name: 'guildBanRemove',

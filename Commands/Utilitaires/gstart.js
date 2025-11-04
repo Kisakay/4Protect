@@ -1,6 +1,6 @@
 import { EmbedBuilder, Invite } from 'discord.js';
 import db from "../../Events/loadDatabase.js";
-import config from "../../config.json"
+import config from "../../config.json" with { type: 'json' }
 import ms from "ms";
 
 export const command = {

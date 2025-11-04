@@ -1,8 +1,8 @@
 import * as Discord from "discord.js";
 import db from "../../Events/loadDatabase.js";
 import { EmbedBuilder } from "discord.js";
-import config from "../../config.json";
-import sendLog from "../../Events/sendlog";
+import config from "../../config.json" with { type: 'json' }
+import sendLog from "../../Events/sendlog.js";
 
 export const command = {
 	name: 'renew',

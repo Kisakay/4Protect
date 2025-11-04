@@ -1,7 +1,7 @@
 import Discord, { AuditLogEvent } from "discord.js"
 import sendLog from "./sendlog.js";
 import db from "./loadDatabase.js";
-import config from "../config.json";
+import config from "../config.json" with { type: 'json' }
 
 const bypass = async (userId) => {
 	if (config.owners && config.owners.includes(userId)) return true;

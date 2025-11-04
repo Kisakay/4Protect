@@ -1,5 +1,9 @@
 import path from "node:path";
 import _sqlite3 from "sqlite3";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const sqlite3 = _sqlite3.verbose();
 

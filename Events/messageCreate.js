@@ -1,4 +1,4 @@
-import config from "../config.json";
+import config from "../config.json" with { type: 'json' }
 import { EmbedBuilder } from "discord.js";
 import db from "./loadDatabase.js";
 const spamMap = new Map();

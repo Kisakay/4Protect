@@ -1,6 +1,6 @@
 import { EmbedBuilder } from 'discord.js';
-import config from '../../config.json';
-import db from '../../Events/loadDatabase';
+import config from '../../config.json' with { type: 'json' };
+import db from '../../Events/loadDatabase.js';
 
 export const command = {
 	name: 'leave',
