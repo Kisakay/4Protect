@@ -1,7 +1,7 @@
 import { ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, EmbedBuilder, ComponentType } from 'discord.js';
 import db from "../../Events/loadDatabase.js";
 import Discord from "discord.js"
-import config from "../../config.json"
+import config from "../../config.json" with { type: 'json' };
 
 export const command = {
 	name: 'embed',

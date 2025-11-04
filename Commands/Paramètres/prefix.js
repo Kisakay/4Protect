@@ -1,6 +1,6 @@
 import fs from "fs"
 import db from "../../Events/loadDatabase.js";
-import config from "../../config.json"
+import config from "../../config.json" with { type: 'json' };
 import { EmbedBuilder } from "discord.js";
 import Discord from "discord.js"
 
